@@ -11,19 +11,23 @@
     <!-- Import the element to test -->
     <link rel="import" href="../default-content.html">
     <script src="./default-content.fixtures.js"></script>
+
+  </head>
+  <body>
+    <dom-module id="mock-element">
+      <template></template>
+    </dom-module>
     <script>
       window.stubDefaultElement = function() {};
       Polymer({
         is: 'mock-element',
 
         _setDefaultElement: function(element) {
-          console.log(element);
           return window.stubDefaultElement(element);
         }
       });
     </script>
-  </head>
-  <body>
+
     <test-fixture id="default">
       <template>
         <mock-element>
@@ -58,9 +62,9 @@
 
         it('should then remove itself', function() {
           stubDefaultElement.returns(true);
+          var wrapper = fixture('default');
 
-          var foundComponent = findComponent(fixture('default'));
-          expect(foundComponent).to.not.be.ok;
+          expect(wrapper.children.length).to.equal(0);
         });
       });
     </script>

@@ -4,7 +4,7 @@ class DefaultContent {
   }
 
   ready() {
-    let parent = this.parentElement,
+    let parent = Polymer.dom(this).parentNode,
         shouldRemove;
 
     if (!parent || typeof parent._setDefaultElement !== 'function') {
