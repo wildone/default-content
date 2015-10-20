@@ -12,12 +12,13 @@
     <link rel="import" href="../default-content.html">
     <script src="./default-content.fixtures.js"></script>
     <script>
-      window.stubDefaultElement = sinon.stub();
+      window.stubDefaultElement = function() {};
       Polymer({
         is: 'mock-element',
 
         _setDefaultElement: function(element) {
-          window.stubDefaultElement(element);
+          console.log(element);
+          return window.stubDefaultElement(element);
         }
       });
     </script>
@@ -38,12 +39,13 @@
 
         componentFixtures = window.fixtures;
 
-        beforeEach(function() {
-          component = Polymer.dom(fixture('default')).querySelector('#defaultContent');
-        });
+        function findComponent(wrapper) {
+          return Polymer.dom(wrapper).querySelector('#defaultContent');
+        }
 
-        it('is okay', function() {
-          expect(component).to.be.ok;
+        beforeEach(function() {
+          window.stubDefaultElement = sinon.stub().returns(null);
+          component = findComponent(fixture('default'));
         });
 
         it('should call setDefaultElement on ready', function() {
@@ -52,6 +54,13 @@
 
         it('should call setDefaultElement with itself', function() {
           expect(stubDefaultElement.calledWith(component)).to.be.true;
+        });
+
+        it('should then remove itself', function() {
+          stubDefaultElement.returns(true);
+
+          var foundComponent = findComponent(fixture('default'));
+          expect(foundComponent).to.not.be.ok;
         });
       });
     </script>

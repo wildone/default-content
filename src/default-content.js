@@ -4,14 +4,19 @@ class DefaultContent {
   }
 
   ready() {
-    let parent = this.parentElement;
+    let parent = this.parentElement,
+        shouldRemove;
 
     if (!parent || typeof parent._setDefaultElement !== 'function') {
       console.warn('The default-content element must be used within an element implementing _setDefaultElement');
       return;
     };
 
-    parent._setDefaultElement(this);
+    shouldRemove = parent._setDefaultElement(this);
+
+    if (shouldRemove) {
+      this.remove();
+    }
   }
 }
 
