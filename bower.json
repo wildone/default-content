@@ -1,0 +1,35 @@
+{
+  "name": "default-content",
+  "description": "Provides default content for simpla elements",
+  "version": "0.0.0",
+  "authors": [
+    "Simpla <admin@simpla.io>"
+  ],
+  "license": "MIT",
+  "main": "default-content.html",
+  "keywords": [
+    "simpla",
+    "web component",
+    "polymer",
+    "oggle-content-oggle"
+  ],
+  "ignore": [
+    "*",
+    "!src/**/*",
+    "!default-content.html",
+    "!LICENSE"
+  ],
+  "dependencies": {
+    "webcomponentsjs": "^0.7.14",
+    "polymer": "^1.1.4",
+    "simpla": "git@github.com:simplaio/simpla.git"
+  },
+  "devDependencies": {
+    "web-component-tester": "^3.3.22",
+    "test-fixture": "PolymerElements/test-fixture#~1.0.0"
+  },
+  "componentImports": [
+    "polymer/polymer.html",
+    "simpla/simpla.html"
+  ]
+}
