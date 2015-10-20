@@ -11,11 +11,23 @@
     <!-- Import the element to test -->
     <link rel="import" href="../default-content.html">
     <script src="./default-content.fixtures.js"></script>
+    <script>
+      window.stubDefaultElement = sinon.stub();
+      Polymer({
+        is: 'mock-element',
+
+        _setDefaultElement: function(element) {
+          window.stubDefaultElement(element);
+        }
+      });
+    </script>
   </head>
   <body>
     <test-fixture id="default">
       <template>
-        <default-content></default-content>
+        <mock-element>
+          <default-content id="defaultContent"></default-content>
+        </mock-element>
       </template>
     </test-fixture>
     <script>
@@ -27,11 +39,19 @@
         componentFixtures = window.fixtures;
 
         beforeEach(function() {
-          component = fixture('default');
+          component = Polymer.dom(fixture('default')).querySelector('#defaultContent');
         });
 
         it('is okay', function() {
           expect(component).to.be.ok;
+        });
+
+        it('should call setDefaultElement on ready', function() {
+          expect(stubDefaultElement.called).to.be.true;
+        });
+
+        it('should call setDefaultElement with itself', function() {
+          expect(stubDefaultElement.calledWith(component)).to.be.true;
         });
       });
     </script>
