@@ -1,4 +1,4 @@
-# simpla default-content
+# Simpla default-content
 
 Provides default content for simpla elements
 
