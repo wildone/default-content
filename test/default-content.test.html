@@ -8,6 +8,9 @@
     <script src="../../test-fixture/test-fixture-mocha.js"></script>
     <link rel="import" href="../../test-fixture/test-fixture.html">
 
+    <!-- Dummy Style element to be remove in tests -->
+    <style id="sm-hide-dc"></style>
+
     <!-- Import the element to test -->
     <link rel="import" href="../default-content.html">
     <script src="./default-content.fixtures.js"></script>
@@ -37,7 +40,6 @@
     </test-fixture>
     <script>
       describe('<default-content>', function() {
-
         var component,
             componentFixtures;
 
@@ -65,6 +67,10 @@
           var wrapper = fixture('default');
 
           expect(wrapper.children.length).to.equal(0);
+        });
+
+        it('should remove style that hides the element to begin with', function() {
+          expect(document.getElementById('sm-hide-dc')).to.be.null;
         });
       });
     </script>

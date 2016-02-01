@@ -21,3 +21,11 @@ class DefaultContent {
 }
 
 Polymer(DefaultContent);
+
+// Remove the hiding style element
+(() => {
+  let hider = document.getElementById('sm-hide-dc');
+  if (hider) {
+    hider.remove();
+  }
+})();
