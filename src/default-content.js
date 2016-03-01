@@ -5,17 +5,18 @@ class DefaultContent {
 
   ready() {
     let parent = Polymer.dom(this).parentNode,
-        shouldRemove;
+        onReadyForDefault = () => {
+          let shouldRemove = parent._setDefaultElement(this);
 
-    if (!parent || typeof parent._setDefaultElement !== 'function') {
-      console.warn('The default-content element must be used within an element implementing _setDefaultElement');
-      return;
-    };
+          if (shouldRemove) {
+            this.remove();
+          }
+        };
 
-    shouldRemove = parent._setDefaultElement(this);
-
-    if (shouldRemove) {
-      this.remove();
+    if (parent._readyForDefault) {
+      onReadyForDefault();
+    } else {
+      parent.addEventListener('ready-for-default', onReadyForDefault);
     }
   }
 }
