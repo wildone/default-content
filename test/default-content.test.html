@@ -25,6 +25,11 @@
       Polymer({
         is: 'mock-element',
 
+        beReady: function() {
+          this.fire('ready-for-default');
+          this._readyForDefault = true;
+        },
+
         _setDefaultElement: function(element) {
           return window.stubDefaultElement(element);
         }
@@ -41,6 +46,7 @@
     <script>
       describe('<default-content>', function() {
         var component,
+            wrapperElement,
             componentFixtures;
 
         componentFixtures = window.fixtures;
@@ -49,24 +55,45 @@
           return Polymer.dom(wrapper).querySelector('#defaultContent');
         }
 
-        beforeEach(function() {
-          window.stubDefaultElement = sinon.stub().returns(null);
-          component = findComponent(fixture('default'));
+        describe('setDefaultElement', function() {
+          beforeEach(function() {
+            window.stubDefaultElement = sinon.stub().returns(null);
+
+            wrapperElement = fixture('default');
+            wrapperElement.beReady();
+            component = findComponent(wrapperElement);
+          });
+
+          it('should call setDefaultElement on ready', function() {
+            expect(stubDefaultElement.called).to.be.true;
+          });
+
+          it('should call setDefaultElement with itself', function() {
+            expect(stubDefaultElement.calledWith(component)).to.be.true;
+          });
+
+          it('should then remove itself', function() {
+            stubDefaultElement.returns(true);
+            var wrapper = fixture('default');
+
+            expect(wrapper.children.length).to.equal(0);
+          });
         });
 
-        it('should call setDefaultElement on ready', function() {
-          expect(stubDefaultElement.called).to.be.true;
-        });
+        describe('waiting for readiness', function() {
+          beforeEach(function() {
+            window.stubDefaultElement = sinon.stub().returns(null);
 
-        it('should call setDefaultElement with itself', function() {
-          expect(stubDefaultElement.calledWith(component)).to.be.true;
-        });
+            wrapperElement = fixture('default');
+            component = findComponent(wrapperElement);
+          });
 
-        it('should then remove itself', function() {
-          stubDefaultElement.returns(true);
-          var wrapper = fixture('default');
-
-          expect(wrapper.children.length).to.equal(0);
+          it('should wait for component to be ready', function() {
+            var wrapper = fixture('default');
+            expect(stubDefaultElement.called).to.be.false;
+            wrapper.beReady();
+            expect(stubDefaultElement.called).to.be.true;
+          });
         });
 
         it('should remove style that hides the element to begin with', function() {
