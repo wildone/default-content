@@ -16,7 +16,7 @@
   "ignore": [
     "*",
     "!src/**/*",
-    "!default-content.html",
+    "!*.html",
     "!LICENSE"
   ],
   "dependencies": {
