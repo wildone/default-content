@@ -13,8 +13,6 @@
 
     <!-- Import the element to test -->
     <link rel="import" href="../default-content.html">
-    <script src="./default-content.fixtures.js"></script>
-
   </head>
   <body>
     <dom-module id="mock-element">
@@ -54,6 +52,12 @@
         function findComponent(wrapper) {
           return Polymer.dom(wrapper).querySelector('#defaultContent');
         }
+
+        describe('behavior', function() {
+          it('should expose default content behavior', function() {
+            expect(window.simpla.behaviors.default).to.be.ok;
+          });
+        });
 
         describe('setDefaultElement', function() {
           beforeEach(function() {
