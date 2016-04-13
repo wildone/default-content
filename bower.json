@@ -1,7 +1,7 @@
 {
   "name": "default-content",
   "description": "Provides default content for simpla elements",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "authors": [
     "Simpla <admin@simpla.io>"
   ],

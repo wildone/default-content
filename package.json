@@ -1,6 +1,6 @@
 {
   "name": "default-content",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Provides default content for simpla elements",
   "main": "default-content.html",
   "scripts": {
