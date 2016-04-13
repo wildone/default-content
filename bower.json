@@ -21,7 +21,8 @@
   ],
   "dependencies": {
     "webcomponentsjs": "^0.7.14",
-    "polymer": "^1.3.0"
+    "polymer": "^1.3.0",
+    "object-assign": "simplaio/object-assign"
   },
   "devDependencies": {
     "web-component-tester": "^3.3.22",
